@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/card_back.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25660964230171074" />
-        <entry key="app/src/main/res/layout/weather_rv_cardview.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/weather_rv_cardview.xml" value="0.9" />
       </map>
     </option>
   </component>

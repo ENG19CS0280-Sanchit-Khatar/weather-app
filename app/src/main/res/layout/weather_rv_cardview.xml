@@ -75,8 +75,8 @@
 
         <ImageView
             android:id="@+id/RvCardImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:foregroundGravity="center"
             android:padding="3dp"
             android:src="@mipmap/ic_launcher"
