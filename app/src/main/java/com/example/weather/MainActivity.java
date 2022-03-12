@@ -16,8 +16,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         llsearchicon = findViewById(R.id.llsearchicon);
         llSearchEdittxt = findViewById(R.id.lledittxtcityinput);
         backimg = findViewById(R.id.blockclr);
+        llSearchEdittxt.setOnEditorActionListener(editorListner);
 
         WeatherRVmodalArrayList = new ArrayList<>();
 
@@ -99,11 +103,30 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Please enter city name", Toast.LENGTH_SHORT).show();
                 } else {
                     //tvcityname.setText(CityName);
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                     getLatLong(city);
+                    llSearchEdittxt.setText("");
+
                 }
             }
         });
     }
+
+    private TextView.OnEditorActionListener editorListner = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
+                String city = llSearchEdittxt.getText().toString();
+                // for closing the key board
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                getLatLong(city);
+                llSearchEdittxt.setText("");
+            }
+            return false;
+        }
+    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -158,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
                         Double lati = jsonObject.getDouble("lat");
                         Double longi = jsonObject.getDouble("lon");
                         getWeather(lati, longi, city);
-                        Log.d("gameofthrones", lati.toString());
                     }
 
                 } catch (JSONException e) {
@@ -281,7 +303,6 @@ public class MainActivity extends AppCompatActivity {
                 return -1;
         }
     }
-
     public void initRecyclerView() {
         recyclerView = findViewById(R.id.RVforecastcards);
         linearLayoutManager = new LinearLayoutManager(this);
