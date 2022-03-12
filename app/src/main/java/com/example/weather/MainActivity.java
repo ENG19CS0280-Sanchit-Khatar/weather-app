@@ -106,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                     getLatLong(city);
-                    llSearchEdittxt.setText("");
-
                 }
             }
         });
@@ -122,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                 getLatLong(city);
-                llSearchEdittxt.setText("");
             }
             return false;
         }
@@ -180,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
                         String city = jsonObject.getString("name");
                         Double lati = jsonObject.getDouble("lat");
                         Double longi = jsonObject.getDouble("lon");
+                        llSearchEdittxt.setText("");
                         getWeather(lati, longi, city);
                     }
 
