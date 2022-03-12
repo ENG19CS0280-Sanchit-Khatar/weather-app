@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/card_back.xml" value="0.1595" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25660964230171074" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1485" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="app/src/main/res/layout/weather_rv_cardview.xml" value="0.5" />
       </map>
     </option>
