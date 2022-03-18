@@ -47,17 +47,6 @@ public class WeatherRVadapter extends RecyclerView.Adapter<WeatherRVadapter.View
         String cardImage = modal.getCardImage();
         String condition = modal.getCondition();
         holder.setData(day, maxTemp, minTemp, cardImage, condition);
-        /*//Picasso.get().load("http:".concat(modal.getWeaicon())).into(holder.weatherIconIV);
-        holder.windTV.setText("12 KM/h");
-        //holder.windTV.setText(modal.getWindspeed().concat("Km/h"));
-        SimpleDateFormat input_simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        SimpleDateFormat output_simpleDateFormat = new SimpleDateFormat("hh:mm aa");
-        try{
-            Date date = input_simpleDateFormat.parse(modal.getTime());
-            holder.timeTV.setText(output_simpleDateFormat.format(date));
-        }catch (ParseException e){
-            e.printStackTrace();
-        }*/
     }
 
     @Override

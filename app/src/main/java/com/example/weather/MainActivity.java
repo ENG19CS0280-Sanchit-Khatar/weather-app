@@ -27,6 +27,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -150,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                         cityName = city;
                         //Log.i("got_city", cityName);
                     } else {
+                        llSearchEdittxt.setText("");
                         Toast.makeText(this, "City not Found", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -189,7 +192,12 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "Couldn't Find City", Toast.LENGTH_SHORT).show();
+                if (error instanceof NetworkError) {
+                    Toast.makeText(MainActivity.this, "Couldn't connect to Internet", Toast.LENGTH_SHORT).show();
+                } else if (error instanceof ParseError) {
+                    llSearchEdittxt.setText("");
+                    Toast.makeText(MainActivity.this, "Couldn't Find City", Toast.LENGTH_SHORT).show();
+                }
                 error.printStackTrace();
             }
         });
