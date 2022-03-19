@@ -21,9 +21,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     private int PERMISSION_CODE = 1;
     private String CityName;
     private EditText llSearchEdittxt;
+    private Button tryAgainbtn;
+    private RelativeLayout NoInternetlayout;
     int day;
     private LinearLayoutManager linearLayoutManager;
     String[] DaysArray = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
@@ -81,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
         tvcurrwea = findViewById(R.id.TVcurrwea);
         initalloading = findViewById(R.id.progressbar);
         constraintLayout = findViewById(R.id.home);
-
+        tryAgainbtn = findViewById(R.id.TryAgainBtn);
+        NoInternetlayout = findViewById(R.id.RLNoInternet);
         llsearchicon = findViewById(R.id.llsearchicon);
         llSearchEdittxt = findViewById(R.id.lledittxtcityinput);
         backimg = findViewById(R.id.blockclr);
@@ -95,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         CityName = getCityName(location.getLongitude(), location.getLatitude());
-        getLatLong(CityName);
+        getWeather(location.getLatitude(), location.getLongitude(), CityName);
 
         llsearchicon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +114,13 @@ public class MainActivity extends AppCompatActivity {
                     inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                     getLatLong(city);
                 }
+            }
+        });
+        tryAgainbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llSearchEdittxt.setText("");
+                getWeather(location.getLatitude(), location.getLongitude(), CityName);
             }
         });
     }
@@ -193,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error instanceof NetworkError) {
-                    Toast.makeText(MainActivity.this, "Couldn't connect to Internet", Toast.LENGTH_SHORT).show();
+                    SetNoInternet(true);
                 } else if (error instanceof ParseError) {
                     llSearchEdittxt.setText("");
                     Toast.makeText(MainActivity.this, "Couldn't Find City", Toast.LENGTH_SHORT).show();
@@ -260,9 +272,13 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                tvcityname.setText("");
-                Toast.makeText(MainActivity.this, "Enter Valid City Name", Toast.LENGTH_SHORT).show();
-                error.printStackTrace();
+                if (error instanceof NetworkError) {
+                    SetNoInternet(false);
+                } else if (error instanceof ParseError) {
+                    tvcityname.setText("");
+                    Toast.makeText(MainActivity.this, "Enter Valid City Name", Toast.LENGTH_SHORT).show();
+                    error.printStackTrace();
+                }
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -309,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
                 return -1;
         }
     }
+
     public void initRecyclerView() {
         recyclerView = findViewById(R.id.RVforecastcards);
         linearLayoutManager = new LinearLayoutManager(this);
@@ -317,5 +334,11 @@ public class MainActivity extends AppCompatActivity {
         adapter = new WeatherRVadapter(WeatherRVmodalArrayList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    public void SetNoInternet(boolean flag) {
+        if (flag == true) constraintLayout.setVisibility(View.GONE);
+        initalloading.setVisibility(View.GONE);
+        NoInternetlayout.setVisibility(View.VISIBLE);
     }
 }
