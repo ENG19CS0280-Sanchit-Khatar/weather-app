@@ -1,7 +1,7 @@
 ## Simple Weather App
 ### Requirements:
 - JDK 8
--  Supports API Level + 21
+-  Supports API Level 24+ (Nougat)
 -  Material components 1.5.0-alpha04
 -  Android SDK 31
 
