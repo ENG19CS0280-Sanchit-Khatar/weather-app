@@ -16,6 +16,14 @@
 - [Volley](https://google.github.io/volley/): Volley is an HTTP library that makes networking for Android apps easier and most importantly, faster.
 
 ### Screenshots:
-<img src = "https://github.com/ENG19CS0280-Sanchit-Khatar/weather-app/blob/master/assets/ss1.png" width = "300" height = "600"/>
-<img src = "https://github.com/ENG19CS0280-Sanchit-Khatar/weather-app/blob/master/assets/no_internet_layout.png" width = "300" height = "600" />
+<table>
+<tr>
+  <td>Home Screen</td>
+  <td>No Internet Screen</td>
+</tr>
+<tr>
+  <td><img src = "https://github.com/ENG19CS0280-Sanchit-Khatar/weather-app/blob/master/assets/ss1.png" width = "300" height = "600"/></td>
+  <td><img src = "https://github.com/ENG19CS0280-Sanchit-Khatar/weather-app/blob/master/assets/no_internet_layout.png" width = "300" height = "600" /></td>
+</tr>
+</table>
 
