@@ -12,7 +12,7 @@
 ### Libraries and Dependencies:
 - Support Libraries: appcompat / constraintlayout / linearlayout
 - Material Design: material textfield textinput TextInputEditText / material textfield textinput TextInputLayout
-- Square: [Piccasso](https://github.com/square/picasso) For Image loading
+- Square: [Picasso](https://github.com/square/picasso) For Image loading
 - [Volley](https://google.github.io/volley/): Volley is an HTTP library that makes networking for Android apps easier and most importantly, faster.
 
 ### Screenshots:
